@@ -1,5 +1,9 @@
 function lineup() {
 
+  /* Set min_salary and min_points to limit the lineups that get selected */
+  var min_salary = 55000;
+  var min_points = 155;
+
   var player_list = [];
   var lineup_list = [];
   var lineup_salary = 0;
@@ -36,8 +40,8 @@ function lineup() {
         for (l = k+1; l < player_list.length; l++) {
           for (m = l+1; m < player_list.length; m++) {
             lineup_salary = player_list[i]["salary"] + player_list[j]["salary"] + player_list[k]["salary"] + player_list[l]["salary"] + player_list[m]["salary"];
-            if (lineup_salary <= 60000 && lineup_salary > 54999) {
-              lineup_points = player_list[i]["points"] + player_list[j]["points"] + player_list[k]["points"] + player_list[l]["points"] + player_list[m]["points"];
+            lineup_points = player_list[i]["points"] + player_list[j]["points"] + player_list[k]["points"] + player_list[l]["points"] + player_list[m]["points"];
+            if (lineup_salary <= 60000 && lineup_salary >= min_salary && lineup_points >= min_points) {
               lineup_count++;
               lineup_list.push(lineup_hash(lineup_points, lineup_salary, player_list[i]["name"], player_list[j]["name"], player_list[k]["name"], player_list[l]["name"], player_list[m]["name"]));
             }
@@ -47,12 +51,31 @@ function lineup() {
     }
   }
 
-  document.write(lineup_count + "<br /><br />");
+  var num_lineups = document.getElementById("num_lineups");
+  num_lineups.innerHTML = lineup_count;
 
   lineup_list.sort(function(a, b){return b.points - a.points});
 
+  var table = document.getElementById("wtf");
+
   for (i=0; i < lineup_list.length; i++) {
-    document.write(lineup_list[i]["points"].toFixed(2) + " $" + lineup_list[i]["salary"] + " " + lineup_list[i]["player1"] + " " + lineup_list[i]["player2"] + " " + lineup_list[i]["player3"] + " " + lineup_list[i]["player4"] + " " + lineup_list[i]["player5"] + "<br />");
+    var row = table.insertRow(-1);
+    var cell_points = row.insertCell(0);
+    var cell_salary = row.insertCell(1);
+    var cell_player1 = row.insertCell(2);
+    var cell_player2 = row.insertCell(3);
+    var cell_player3 = row.insertCell(4);
+    var cell_player4 = row.insertCell(5);
+    var cell_player5 = row.insertCell(6);
+
+    cell_points.innerHTML = lineup_list[i]["points"].toFixed(2);
+    cell_salary.innerHTML = "$" + lineup_list[i]["salary"];
+    cell_player1.innerHTML = lineup_list[i]["player1"];
+    cell_player2.innerHTML = lineup_list[i]["player2"];
+    cell_player3.innerHTML = lineup_list[i]["player3"];
+    cell_player4.innerHTML = lineup_list[i]["player4"];
+    cell_player5.innerHTML = lineup_list[i]["player5"];
+
   }
 
 }
