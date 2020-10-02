@@ -40,10 +40,12 @@ function lineup() {
   player_list.push(player_hash("Quinn Cook", 8.36, 6000));
   player_list.push(player_hash("JR Smith", 4.42, 6000));
   player_list.push(player_hash("KZ Okpala", 4.50, 6000));
+  player_list.push(player_hash("Avery Bradley", 15.36, 6000));
   player_list.push(player_hash("Kostas Antetokounmpo", 2.52, 6000));
   player_list.push(player_hash("Devontae Cacok", 13.50, 6000));
   player_list.push(player_hash("Udonis Haslem", 7.93, 6000));
   player_list.push(player_hash("Meyers Leonard", 14.74, 6000));
+
 
   for (i = 0; i < 3; i++) {
     for (j = i+1; j < 3; j++) {
