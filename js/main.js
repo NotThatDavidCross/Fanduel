@@ -1,9 +1,7 @@
 function lineup() {
 
-  console.log("at least it is running");
-
   var player_list = [];
-  var player = {};
+  var lineup_list = [];
   var lineup_salary = 0;
   var lineup_count = 0;
   var lineup_points = 0.0;
@@ -41,7 +39,7 @@ function lineup() {
             if (lineup_salary <= 60000 && lineup_salary > 54999) {
               lineup_points = player_list[i]["points"] + player_list[j]["points"] + player_list[k]["points"] + player_list[l]["points"] + player_list[m]["points"];
               lineup_count++;
-              document.write("<strong>" + lineup_points.toFixed(2) + "</strong> " + lineup_salary + " " + player_list[i]["name"] + " " + player_list[j]["name"] + " " + player_list[k]["name"] + " " + player_list[l]["name"] + " " + player_list[m]["name"] + "<br />");
+              lineup_list.push(lineup_hash(lineup_points, lineup_salary, player_list[i]["name"], player_list[j]["name"], player_list[k]["name"], player_list[l]["name"], player_list[m]["name"]));
             }
           }
         }
@@ -49,7 +47,14 @@ function lineup() {
     }
   }
 
-  document.write("<br />" + lineup_count);
+  document.write(lineup_count + "<br /><br />");
+
+  lineup_list.sort(function(a, b){return b.points - a.points});
+
+  for (i=0; i < lineup_list.length; i++) {
+    document.write(lineup_list[i]["points"].toFixed(2) + " $" + lineup_list[i]["salary"] + " " + lineup_list[i]["player1"] + " " + lineup_list[i]["player2"] + " " + lineup_list[i]["player3"] + " " + lineup_list[i]["player4"] + " " + lineup_list[i]["player5"] + "<br />");
+  }
+
 }
 
 function player_hash(name, points, salary) {
@@ -58,4 +63,16 @@ function player_hash(name, points, salary) {
   p["points"] = points;
   p["salary"] = salary;
   return p;
+}
+
+function lineup_hash(points, salary, player1, player2, player3, player4, player5) {
+  var l = {};
+  l["points"] = points;
+  l["salary"] = salary;
+  l["player1"] = player1;
+  l["player2"] = player2;
+  l["player3"] = player3;
+  l["player4"] = player4;
+  l["player5"] = player5;
+  return l;
 }
