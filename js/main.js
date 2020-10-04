@@ -1,9 +1,5 @@
 function lineup() {
 
-  let lineup_salary = 0;
-  let lineup_count = 0;
-  let lineup_points = 0.0;
-
   let num_lineups = document.getElementById("num_lineups");
   num_lineups.innerHTML = "Running";
 
@@ -26,10 +22,25 @@ function find_lineups(player_list) {
   player_list.sort(function(a, b){return b.FPPG - a.FPPG});
 
   for (i = 0; i < player_list.length; i++) {
+    if (player_list[i]["Injury Indicator"] === 'IR' || player_list[i]["Injury Indicator"] === 'O') {
+      continue;
+    }
     for (j = i+1; j < player_list.length; j++) {
+      if (player_list[j]["Injury Indicator"] === 'IR' || player_list[j]["Injury Indicator"] === 'O') {
+        continue;
+      }
       for (k = j+1; k < player_list.length; k++) {
+        if (player_list[k]["Injury Indicator"] === 'IR' || player_list[k]["Injury Indicator"] === 'O') {
+          continue;
+        }
         for (l = k+1; l < player_list.length; l++) {
+          if (player_list[l]["Injury Indicator"] === 'IR' || player_list[l]["Injury Indicator"] === 'O') {
+            continue;
+          }
           for (m = l+1; m < player_list.length; m++) {
+            if (player_list[m]["Injury Indicator"] === 'IR' || player_list[m]["Injury Indicator"] === 'O') {
+              continue;
+            }
             lineup_salary = player_list[i]["Salary"] + player_list[j]["Salary"] + player_list[k]["Salary"] + player_list[l]["Salary"] + player_list[m]["Salary"];
             lineup_points = player_list[i]["FPPG"] + player_list[j]["FPPG"] + player_list[k]["FPPG"] + player_list[l]["FPPG"] + player_list[m]["FPPG"];
             if (lineup_salary <= 60000 && lineup_salary >= min_salary && lineup_points >= min_points) {
@@ -70,14 +81,6 @@ function display_data(lineup_list) {
     cell_player4.innerHTML = lineup_list[i]["player4"];
     cell_player5.innerHTML = lineup_list[i]["player5"];
   }
-}
-
-function player_hash(name, points, salary) {
-  var p = {};
-  p["name"] = name;
-  p["points"] = points;
-  p["salary"] = salary;
-  return p;
 }
 
 function lineup_hash(points, salary, player1, player2, player3, player4, player5) {
